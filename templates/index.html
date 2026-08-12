@@ -61,15 +61,15 @@
          style="background-image: url('data:image/svg+xml,%3Csvg width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%239B2D3A\' fill-opacity=\'1\'%3E%3Cpath d=\'M40 0L42 20L40 40L38 20Z M0 40L20 42L40 40L20 38Z M40 80L42 60L40 40L38 60Z M80 40L60 42L40 40L60 38Z\'/%3E%3Ccircle cx=\'40\' cy=\'40\' r=\'2\'/%3E%3C/g%3E%3C/svg%3E');">
     </div>
 
-            <!-- Цветы слева -->
-    <div class="hidden lg:block absolute -left-8 top-1/2 -translate-y-1/2 w-72 xl:w-96 opacity-70 pointer-events-none select-none"
+                <!-- Цветы слева -->
+    <div class="absolute -left-6 top-24 w-28 sm:w-36 md:w-48 lg:w-72 xl:w-96 opacity-40 lg:opacity-70 pointer-events-none select-none lg:top-1/2 lg:-translate-y-1/2 lg:-left-8"
          style="mask-image: radial-gradient(ellipse 70% 80% at center, black 40%, transparent 75%);
                 -webkit-mask-image: radial-gradient(ellipse 70% 80% at center, black 40%, transparent 75%);">
       <img src="/static/flowers-left.jpg" alt="" class="w-full h-auto object-contain">
     </div>
 
     <!-- Цветы справа -->
-    <div class="hidden lg:block absolute -right-8 top-1/2 -translate-y-1/2 w-72 xl:w-96 opacity-70 pointer-events-none select-none"
+    <div class="absolute -right-6 top-24 w-28 sm:w-36 md:w-48 lg:w-72 xl:w-96 opacity-40 lg:opacity-70 pointer-events-none select-none lg:top-1/2 lg:-translate-y-1/2 lg:-right-8"
          style="mask-image: radial-gradient(ellipse 70% 80% at center, black 40%, transparent 75%);
                 -webkit-mask-image: radial-gradient(ellipse 70% 80% at center, black 40%, transparent 75%);">
       <img src="/static/flowers-right.jpg" alt="" class="w-full h-auto object-contain">
@@ -103,13 +103,17 @@
     </p>
   </section>
 
+  <div class="ornament mx-auto mb-12"></div>
+
   <!-- RSVP Form -->
   <section id="rsvp" class="pb-24 px-4">
     <div class="max-w-xl mx-auto bg-white rounded-2xl card-shadow overflow-hidden">
-      <div class="bg-blush/60 px-8 py-6 text-center border-b border-rose/20">
-        <h2 class="font-serif text-3xl font-semibold text-ink">RSVP</h2>
-        <p class="text-sm text-ink/60 mt-1">Заполните форму, пожалуйста</p>
-      </div>
+      <div class="bg-blush/60 px-8 py-8 text-center border-b border-rose/20">
+  <div class="ornament mx-auto mb-4"></div>
+  <h2 class="font-serif text-3xl font-semibold text-ink">RSVP</h2>
+  <p class="text-sm text-ink/60 mt-2">Заполните форму, пожалуйста</p>
+  <p class="text-xs text-ink/40 mt-3 tracking-wide">Мы будем рады видеть вас</p>
+</div>
 
       <form action="/rsvp" method="POST" class="p-8 space-y-6">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -226,10 +230,16 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="text-center py-10 text-ink/40 text-xs tracking-wide">
-    <p>{{ couple_names }} · {{ wedding_date }}</p>
-    <p class="mt-2">С любовью ждём вас 🤍</p>
+    <!-- Footer -->
+  <footer class="text-center py-16 px-6 border-t border-rose/15">
+    <div class="ornament mx-auto mb-6"></div>
+    <p class="font-serif text-2xl text-ink/80 mb-2">{{ couple_names }}</p>
+    <p class="text-sm text-ink/50 tracking-wide mb-1">{{ wedding_date }}</p>
+    <p class="text-sm text-ink/40 mb-8">{{ wedding_place }}</p>
+    <p class="font-serif text-lg text-ink/60 italic">
+      С нетерпением ждём встречи с вами
+    </p>
+    <p class="mt-8 text-xs text-ink/30 tracking-widest uppercase">С любовью🤍</p>
   </footer>
 
 </body>
