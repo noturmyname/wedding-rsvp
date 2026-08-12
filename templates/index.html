@@ -13,12 +13,13 @@
       theme: {
         extend: {
           colors: {
-            cream: '#FBF7F2',
-            blush: '#F5E6E0',
-            rose: '#C9A9A6',
-            gold: '#C5A46E',
-            sage: '#8B9A7D',
-            ink: '#3D3A36',
+           cream: '#F8F1E9',
+           blush: '#F3E8E0',
+           rose: '#9B2D3A',
+           gold: '#C9A227',
+           sage: '#7B1E2E',
+           ink: '#3D1A1A',
+           burgundy: '#5C0A0A',
           },
           fontFamily: {
             serif: ['Cormorant Garamond', 'serif'],
@@ -32,7 +33,7 @@
     body { font-family: 'Montserrat', sans-serif; }
     .font-serif { font-family: 'Cormorant Garamond', serif; }
     .hero-bg {
-      background: linear-gradient(165deg, #FBF7F2 0%, #F5E6E0 45%, #EDE4D9 100%);
+      background: linear-gradient(165deg, #F8F1E9 0%, #F3E8E0 40%, #EDE0D4 100%);
     }
     .ornament {
       width: 120px;
@@ -70,7 +71,7 @@
       {{ wedding_place }}
     </p>
 
-    <a href="#rsvp" class="mt-12 inline-flex items-center gap-2 px-8 py-3.5 bg-ink text-cream text-sm tracking-widest uppercase rounded-full hover:bg-ink/90 transition-all duration-300">
+    <a href="#rsvp" class="mt-12 inline-flex items-center gap-2 px-8 py-3.5 bg-burgundy text-cream text-sm tracking-widest uppercase rounded-full hover:bg-burgundy/90 transition-all duration-300">
       Подтвердить присутствие
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
     </a>
@@ -201,7 +202,7 @@
         </div>
 
         <button type="submit"
-                class="w-full py-4 bg-ink text-cream font-medium tracking-widest uppercase text-sm rounded-xl hover:bg-ink/90 transition-all duration-300 active:scale-[0.98]">
+                class="w-full py-4 bg-burgundy text-cream font-medium tracking-widest uppercase text-sm rounded-xl hover:bg-burgundy/90 transition-all duration-300 active:scale-[0.98]">
           Отправить ответ
         </button>
       </form>
