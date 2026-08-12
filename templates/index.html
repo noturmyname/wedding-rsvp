@@ -113,24 +113,29 @@
         </div>
 
         <!-- Сторона -->
-        <div>
+       <div>
           <label class="block text-xs tracking-wider uppercase text-ink/50 mb-3">С чьей стороны *</label>
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-3 gap-2">
             <label class="relative cursor-pointer">
               <input type="radio" name="side" value="жених" required class="peer sr-only" />
-              <div class="px-4 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
+              <div class="px-3 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center text-sm peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
                 <span class="font-medium">Жениха</span>
               </div>
             </label>
             <label class="relative cursor-pointer">
               <input type="radio" name="side" value="невеста" required class="peer sr-only" />
-              <div class="px-4 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
+              <div class="px-3 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center text-sm peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
                 <span class="font-medium">Невесты</span>
+              </div>
+            </label>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="side" value="общие" required class="peer sr-only" />
+              <div class="px-3 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center text-sm peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
+                <span class="font-medium">Общие</span>
               </div>
             </label>
           </div>
         </div>
-
         <!-- Присутствие -->
         <div>
           <label class="block text-xs tracking-wider uppercase text-ink/50 mb-3">Будете присутствовать? *</label>
