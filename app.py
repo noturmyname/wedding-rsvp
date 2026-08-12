@@ -112,10 +112,10 @@ def rsvp():
     email = ""  # email убрали из формы
     comments = (request.form.get("comments") or "").strip()
 
-    errors = []
+        errors = []
     if not full_name:
         errors.append("Укажите ФИО")
-   if side not in ("жених", "невеста", "общие"):
+    if side not in ("жених", "невеста", "общие"):
         errors.append("Выберите сторону")
     if attendance not in ("да", "нет", "возможно"):
         errors.append("Укажите, будете ли присутствовать")
