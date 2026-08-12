@@ -192,7 +192,6 @@ def admin_logout():
     session.pop("admin_logged_in", None)
     return redirect(url_for("index"))
 
-
 @app.route("/admin")
 @login_required
 def admin():
@@ -201,7 +200,6 @@ def admin():
         "SELECT * FROM guests ORDER BY created_at DESC"
     ).fetchall()
 
-    # Статистика только по тем, кто идёт (да) или возможно
     confirmed = [g for g in guests if g["attendance"] == "да"]
     maybe = [g for g in guests if g["attendance"] == "возможно"]
     declined = [g for g in guests if g["attendance"] == "нет"]
@@ -209,7 +207,7 @@ def admin():
     def sum_field(lst, field):
         return sum(g[field] for g in lst)
 
-        stats = {
+    stats = {
         "total_responses": len(guests),
         "confirmed_count": len(confirmed),
         "maybe_count": len(maybe),
