@@ -29,7 +29,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "change-me-to-something-random-in-
 # === НАСТРОЙКИ (измените под себя) ===
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "wedding2026")
 COUPLE_NAMES = "Вадим & Ясмин"
-WEDDING_DATE = "28 февраля 2027"
+WEDDING_DATE = "27 февраля 2027"
 WEDDING_PLACE = "Ресторан «Лотос», Приморский край, Спасск-Дальний"
 # =====================================
 
