@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админка — {{ couple_names }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FBF7F2',
+            blush: '#F5E6E0',
+            rose: '#C9A9A6',
+            gold: '#C5A46E',
+            ink: '#3D3A36',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+  </style>
+</head>
+<body class="bg-cream text-ink min-h-screen flex items-center justify-center px-6">
+
+  <div class="max-w-sm w-full bg-white rounded-2xl shadow-xl p-8">
+    <h1 class="font-serif text-3xl font-semibold text-center mb-2">Админка</h1>
+    <p class="text-center text-sm text-ink/50 mb-8">{{ couple_names }}</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="mb-4 px-4 py-3 rounded-lg text-sm bg-red-50 text-red-700 border border-red-200">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="space-y-5">
+      <div>
+        <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">Пароль</label>
+        <input type="password" name="password" required autofocus
+               class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none" />
+      </div>
+      <button type="submit"
+              class="w-full py-3.5 bg-ink text-cream rounded-xl text-sm tracking-widest uppercase hover:bg-ink/90 transition">
+        Войти
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

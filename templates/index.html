@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ couple_names }} — Приглашение на свадьбу</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FBF7F2',
+            blush: '#F5E6E0',
+            rose: '#C9A9A6',
+            gold: '#C5A46E',
+            sage: '#8B9A7D',
+            ink: '#3D3A36',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+    .hero-bg {
+      background: linear-gradient(165deg, #FBF7F2 0%, #F5E6E0 45%, #EDE4D9 100%);
+    }
+    .ornament {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C5A46E, transparent);
+    }
+    .card-shadow {
+      box-shadow: 0 20px 50px -12px rgba(61, 58, 54, 0.12);
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #C5A46E;
+      box-shadow: 0 0 0 3px rgba(197, 164, 110, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-cream text-ink antialiased">
+
+  <!-- Hero -->
+  <section class="hero-bg min-h-[70vh] flex flex-col items-center justify-center px-6 py-16 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04] pointer-events-none"
+         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23C5A46E\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+    </div>
+
+    <p class="font-sans text-xs tracking-[0.35em] uppercase text-rose mb-6">Вы приглашены</p>
+    
+    <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold text-ink leading-tight mb-4">
+      {{ couple_names }}
+    </h1>
+    
+    <div class="ornament mx-auto my-6"></div>
+    
+    <p class="font-serif text-2xl sm:text-3xl text-ink/80 italic mb-2">{{ wedding_date }}</p>
+    <p class="font-sans text-sm text-ink/60 tracking-wide max-w-md mx-auto">
+      {{ wedding_place }}
+    </p>
+
+    <a href="#rsvp" class="mt-12 inline-flex items-center gap-2 px-8 py-3.5 bg-ink text-cream text-sm tracking-widest uppercase rounded-full hover:bg-ink/90 transition-all duration-300">
+      Подтвердить присутствие
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </a>
+  </section>
+
+  <!-- Message -->
+  <section class="max-w-2xl mx-auto px-6 py-16 text-center">
+    <p class="font-serif text-xl sm:text-2xl leading-relaxed text-ink/80">
+      Дорогие друзья и родные!<br/><br/>
+      Мы будем счастливы разделить с вами день нашей свадьбы.
+      Пожалуйста, подтвердите своё присутствие — это очень поможет нам с организацией.
+    </p>
+  </section>
+
+  <!-- RSVP Form -->
+  <section id="rsvp" class="pb-24 px-4">
+    <div class="max-w-xl mx-auto bg-white rounded-2xl card-shadow overflow-hidden">
+      <div class="bg-blush/60 px-8 py-6 text-center border-b border-rose/20">
+        <h2 class="font-serif text-3xl font-semibold text-ink">RSVP</h2>
+        <p class="text-sm text-ink/60 mt-1">Заполните форму, пожалуйста</p>
+      </div>
+
+      <form action="/rsvp" method="POST" class="p-8 space-y-6">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="px-4 py-3 rounded-lg text-sm {% if category == 'error' %}bg-red-50 text-red-700 border border-red-200{% else %}bg-green-50 text-green-700{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- ФИО -->
+        <div>
+          <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">ФИО *</label>
+          <input type="text" name="full_name" required
+                 class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 text-ink placeholder:text-ink/30"
+                 placeholder="Иванов Иван Иванович" />
+        </div>
+
+        <!-- Сторона -->
+        <div>
+          <label class="block text-xs tracking-wider uppercase text-ink/50 mb-3">С чьей стороны *</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="relative cursor-pointer">
+              <input type="radio" name="side" value="жених" required class="peer sr-only" />
+              <div class="px-4 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
+                <span class="font-medium">Жениха</span>
+              </div>
+            </label>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="side" value="невеста" required class="peer sr-only" />
+              <div class="px-4 py-3.5 rounded-xl border border-rose/30 bg-cream/50 text-center peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
+                <span class="font-medium">Невесты</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Присутствие -->
+        <div>
+          <label class="block text-xs tracking-wider uppercase text-ink/50 mb-3">Будете присутствовать? *</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="relative cursor-pointer">
+              <input type="radio" name="attendance" value="да" required class="peer sr-only" />
+              <div class="px-3 py-3 rounded-xl border border-rose/30 bg-cream/50 text-center text-sm peer-checked:border-sage peer-checked:bg-sage/15 peer-checked:text-ink transition-all">
+                Да
+              </div>
+            </label>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="attendance" value="возможно" class="peer sr-only" />
+              <div class="px-3 py-3 rounded-xl border border-rose/30 bg-cream/50 text-center text-sm peer-checked:border-gold peer-checked:bg-gold/10 peer-checked:text-ink transition-all">
+                Возможно
+              </div>
+            </label>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="attendance" value="нет" class="peer sr-only" />
+              <div class="px-3 py-3 rounded-xl border border-rose/30 bg-cream/50 text-center text-sm peer-checked:border-rose peer-checked:bg-rose/20 peer-checked:text-ink transition-all">
+                Нет
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Количество -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">Взрослых *</label>
+            <input type="number" name="adults" min="0" max="20" value="1" required
+                   class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 text-ink" />
+            <p class="text-xs text-ink/40 mt-1">включая вас</p>
+          </div>
+          <div>
+            <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">Детей</label>
+            <input type="number" name="children" min="0" max="15" value="0"
+                   class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 text-ink" />
+          </div>
+        </div>
+
+        <!-- Инфо о детях -->
+        <div>
+          <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">Имена и возраст детей</label>
+          <textarea name="children_info" rows="2"
+                    class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 text-ink placeholder:text-ink/30 resize-none"
+                    placeholder="Например: Маша, 5 лет; Петя, 8 лет"></textarea>
+        </div>
+
+        <!-- Телефон -->
+        <div>
+          <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">Телефон</label>
+          <input type="tel" name="phone"
+                 class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 text-ink placeholder:text-ink/30"
+                 placeholder="+7 ..." />
+        </div>
+
+        <!-- Комментарии -->
+        <div>
+          <label class="block text-xs tracking-wider uppercase text-ink/50 mb-2">Комментарии / аллергии / пожелания</label>
+          <textarea name="comments" rows="3"
+                    class="w-full px-4 py-3 rounded-xl border border-rose/30 bg-cream/50 text-ink placeholder:text-ink/30 resize-none"
+                    placeholder="Например: вегетарианство, аллергия на орехи..."></textarea>
+        </div>
+
+        <button type="submit"
+                class="w-full py-4 bg-ink text-cream font-medium tracking-widest uppercase text-sm rounded-xl hover:bg-ink/90 transition-all duration-300 active:scale-[0.98]">
+          Отправить ответ
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-10 text-ink/40 text-xs tracking-wide">
+    <p>{{ couple_names }} · {{ wedding_date }}</p>
+    <p class="mt-2">С любовью ждём вас 🤍</p>
+  </footer>
+
+</body>
+</html>

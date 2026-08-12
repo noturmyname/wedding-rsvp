@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Спасибо! — {{ couple_names }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FBF7F2',
+            blush: '#F5E6E0',
+            rose: '#C9A9A6',
+            gold: '#C5A46E',
+            sage: '#8B9A7D',
+            ink: '#3D3A36',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+  </style>
+</head>
+<body class="bg-cream text-ink min-h-screen flex items-center justify-center px-6">
+
+  <div class="max-w-md w-full text-center">
+    <div class="w-20 h-20 mx-auto mb-8 rounded-full bg-sage/20 flex items-center justify-center">
+      <svg class="w-10 h-10 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+
+    <h1 class="font-serif text-4xl font-semibold mb-4">Спасибо!</h1>
+
+    {% if was_updated %}
+      <p class="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6">
+        Вы уже отвечали раньше — старый ответ удалён, сохранён новый.
+      </p>
+    {% endif %}
+    
+    {% if attendance == 'да' %}
+      <p class="text-ink/70 leading-relaxed mb-8">
+        Мы очень рады, что вы будете с нами в этот особенный день.<br/>
+        До скорой встречи!
+      </p>
+    {% elif attendance == 'возможно' %}
+      <p class="text-ink/70 leading-relaxed mb-8">
+        Спасибо, что сообщили. Будем ждать окончательного решения.<br/>
+        Надеемся увидеться!
+      </p>
+    {% else %}
+      <p class="text-ink/70 leading-relaxed mb-8">
+        Жаль, что вы не сможете присутствовать.<br/>
+        Мы будем думать о вас в этот день.
+      </p>
+    {% endif %}
+
+    <a href="/" class="inline-block text-sm tracking-widest uppercase text-gold hover:text-ink transition-colors">
+      ← На главную
+    </a>
+
+    <p class="mt-16 text-xs text-ink/40">{{ couple_names }}</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Гости — {{ couple_names }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FBF7F2',
+            blush: '#F5E6E0',
+            rose: '#C9A9A6',
+            gold: '#C5A46E',
+            sage: '#8B9A7D',
+            ink: '#3D3A36',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+  </style>
+</head>
+<body class="bg-cream text-ink min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-rose/20 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <h1 class="font-serif text-2xl font-semibold">Гости</h1>
+        <p class="text-xs text-ink/50">{{ couple_names }}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/admin/export"
+           class="px-4 py-2 text-sm border border-ink/20 rounded-lg hover:bg-ink/5 transition">
+          Скачать CSV
+        </a>
+        <a href="/admin/logout"
+           class="px-4 py-2 text-sm text-ink/60 hover:text-ink transition">
+          Выйти
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="mb-6 px-4 py-3 rounded-lg text-sm bg-green-50 text-green-700 border border-green-200">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-xs tracking-wider uppercase text-ink/40 mb-1">Ответов</p>
+        <p class="text-3xl font-semibold">{{ stats.total_responses }}</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-xs tracking-wider uppercase text-ink/40 mb-1">Точно придут</p>
+        <p class="text-3xl font-semibold text-sage">{{ stats.confirmed_count }}</p>
+        <p class="text-xs text-ink/50 mt-1">
+          {{ stats.adults_confirmed }} взр. + {{ stats.children_confirmed }} дет.
+        </p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-xs tracking-wider uppercase text-ink/40 mb-1">Возможно</p>
+        <p class="text-3xl font-semibold text-gold">{{ stats.maybe_count }}</p>
+        <p class="text-xs text-ink/50 mt-1">
+          {{ stats.adults_maybe }} взр. + {{ stats.children_maybe }} дет.
+        </p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-xs tracking-wider uppercase text-ink/40 mb-1">Не придут</p>
+        <p class="text-3xl font-semibold text-rose">{{ stats.declined_count }}</p>
+      </div>
+    </div>
+
+    <!-- By side -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-sm font-medium mb-2">Сторона жениха (точно придут)</p>
+        <p class="text-2xl">{{ stats.groom_side_adults }} взр. + {{ stats.groom_side_children }} дет.</p>
+        <p class="text-sm text-ink/50">= {{ stats.groom_side_adults + stats.groom_side_children }} человек</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-sm font-medium mb-2">Сторона невесты (точно придут)</p>
+        <p class="text-2xl">{{ stats.bride_side_adults }} взр. + {{ stats.bride_side_children }} дет.</p>
+        <p class="text-sm text-ink/50">= {{ stats.bride_side_adults + stats.bride_side_children }} человек</p>
+      </div>
+    </div>
+
+    <!-- Total planning number -->
+    <div class="bg-ink text-cream rounded-xl p-6 mb-10 text-center">
+      <p class="text-sm tracking-wider uppercase opacity-70 mb-1">Рекомендуемое количество для организации</p>
+      <p class="text-4xl font-semibold">
+        {{ stats.adults_confirmed + stats.children_confirmed + stats.adults_maybe + stats.children_maybe }}
+      </p>
+      <p class="text-sm opacity-70 mt-2">
+        (точно: {{ stats.adults_confirmed + stats.children_confirmed }} + возможно: {{ stats.adults_maybe + stats.children_maybe }})
+      </p>
+    </div>
+
+    <!-- Table -->
+    {% if guests %}
+    <div class="bg-white rounded-xl border border-rose/15 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-blush/40 text-left">
+            <tr>
+              <th class="px-4 py-3 font-medium">ФИО</th>
+              <th class="px-4 py-3 font-medium">Сторона</th>
+              <th class="px-4 py-3 font-medium">Статус</th>
+              <th class="px-4 py-3 font-medium text-center">Взр.</th>
+              <th class="px-4 py-3 font-medium text-center">Дет.</th>
+              <th class="px-4 py-3 font-medium">Контакты / комментарии</th>
+              <th class="px-4 py-3 font-medium">Дата</th>
+              <th class="px-4 py-3"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-rose/10">
+            {% for g in guests %}
+            <tr class="hover:bg-cream/50">
+              <td class="px-4 py-3 font-medium">{{ g.full_name }}</td>
+              <td class="px-4 py-3">
+                {% if g.side == 'жених' %}
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">Жених</span>
+                {% else %}
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-pink-50 text-pink-700">Невеста</span>
+                {% endif %}
+              </td>
+              <td class="px-4 py-3">
+                {% if g.attendance == 'да' %}
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-green-50 text-green-700">Да</span>
+                {% elif g.attendance == 'возможно' %}
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">Возможно</span>
+                {% else %}
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-red-50 text-red-600">Нет</span>
+                {% endif %}
+              </td>
+              <td class="px-4 py-3 text-center">{{ g.adults }}</td>
+              <td class="px-4 py-3 text-center">{{ g.children }}</td>
+              <td class="px-4 py-3 max-w-xs">
+                {% if g.phone %}<div class="text-xs text-ink/70">{{ g.phone }}</div>{% endif %}
+                {% if g.children_info %}<div class="text-xs text-ink/50 mt-0.5">Дети: {{ g.children_info }}</div>{% endif %}
+                {% if g.comments %}<div class="text-xs text-ink/50 mt-0.5 italic">{{ g.comments }}</div>{% endif %}
+              </td>
+              <td class="px-4 py-3 text-xs text-ink/40 whitespace-nowrap">{{ g.created_at[:16].replace('T', ' ') }}</td>
+              <td class="px-4 py-3">
+                <form method="POST" action="/admin/delete/{{ g.id }}" onsubmit="return confirm('Удалить запись?')">
+                  <button type="submit" class="text-xs text-red-400 hover:text-red-600">✕</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% else %}
+    <div class="text-center py-16 text-ink/40">
+      <p class="text-lg">Пока нет ответов</p>
+      <p class="text-sm mt-2">Когда гости заполнят форму, они появятся здесь</p>
+    </div>
+    {% endif %}
+
+  </main>
+</body>
+</html>
