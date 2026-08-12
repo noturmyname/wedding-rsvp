@@ -87,8 +87,8 @@
       </div>
     </div>
 
-    <!-- By side -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <!-- By side -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
       <div class="bg-white rounded-xl p-5 border border-rose/15">
         <p class="text-sm font-medium mb-2">Сторона жениха (точно придут)</p>
         <p class="text-2xl">{{ stats.groom_side_adults }} взр. + {{ stats.groom_side_children }} дет.</p>
@@ -98,6 +98,11 @@
         <p class="text-sm font-medium mb-2">Сторона невесты (точно придут)</p>
         <p class="text-2xl">{{ stats.bride_side_adults }} взр. + {{ stats.bride_side_children }} дет.</p>
         <p class="text-sm text-ink/50">= {{ stats.bride_side_adults + stats.bride_side_children }} человек</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-rose/15">
+        <p class="text-sm font-medium mb-2">Общие (точно придут)</p>
+        <p class="text-2xl">{{ stats.common_side_adults }} взр. + {{ stats.common_side_children }} дет.</p>
+        <p class="text-sm text-ink/50">= {{ stats.common_side_adults + stats.common_side_children }} человек</p>
       </div>
     </div>
 
