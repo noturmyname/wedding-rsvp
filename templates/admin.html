@@ -134,11 +134,13 @@
             <tr class="hover:bg-cream/50">
               <td class="px-4 py-3 font-medium">{{ g.full_name }}</td>
               <td class="px-4 py-3">
-                {% if g.side == 'жених' %}
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">Жених</span>
-                {% else %}
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-pink-50 text-pink-700">Невеста</span>
-                {% endif %}
+               {% if g.side == 'жених' %}
+  <span class="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">Жених</span>
+{% elif g.side == 'невеста' %}
+  <span class="text-xs px-2 py-0.5 rounded-full bg-pink-50 text-pink-700">Невеста</span>
+{% else %}
+  <span class="text-xs px-2 py-0.5 rounded-full bg-purple-50 text-purple-700">Общие</span>
+{% endif %}
               </td>
               <td class="px-4 py-3">
                 {% if g.attendance == 'да' %}
