@@ -109,10 +109,10 @@ def rsvp():
     children = request.form.get("children", "0")
     children_info = (request.form.get("children_info") or "").strip()
     phone = (request.form.get("phone") or "").strip()
-    email = ""  # email убрали из формы
+    email = ""
     comments = (request.form.get("comments") or "").strip()
 
-        errors = []
+    errors = []
     if not full_name:
         errors.append("Укажите ФИО")
     if side not in ("жених", "невеста", "общие"):
