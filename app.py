@@ -115,7 +115,7 @@ def rsvp():
     errors = []
     if not full_name:
         errors.append("Укажите ФИО")
-    if side not in ("жених", "невеста"):
+   if side not in ("жених", "невеста", "общие"):
         errors.append("Выберите сторону")
     if attendance not in ("да", "нет", "возможно"):
         errors.append("Укажите, будете ли присутствовать")
