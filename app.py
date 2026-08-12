@@ -209,7 +209,7 @@ def admin():
     def sum_field(lst, field):
         return sum(g[field] for g in lst)
 
-    stats = {
+        stats = {
         "total_responses": len(guests),
         "confirmed_count": len(confirmed),
         "maybe_count": len(maybe),
@@ -229,6 +229,12 @@ def admin():
         ),
         "bride_side_children": sum_field(
             [g for g in confirmed if g["side"] == "невеста"], "children"
+        ),
+        "common_side_adults": sum_field(
+            [g for g in confirmed if g["side"] == "общие"], "adults"
+        ),
+        "common_side_children": sum_field(
+            [g for g in confirmed if g["side"] == "общие"], "children"
         ),
     }
 
